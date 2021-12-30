@@ -1,0 +1,38 @@
+{{>lists}}
+<hr>
+
+<table>
+    <thead>
+    <tr>Present list:</tr>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>amount</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each presents}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.amount}} (available: {{lookup ../available @index}})</td>
+            <td><button class="btn-remove" data-id="{{this.id}}">remove</button></td></tr>
+    {{/each}}
+    <form id="form-present">
+        <tr>
+            <td>*</td>
+            <td><input name="present-name" type="text" id="input-present-name" placeholder="add present"></td>
+            <td><input name="present-amount" type="number" id="input-present-amount" placeholder="amount"></td>
+            <td>
+                <button type="submit">add</button>
+            </td>
+        </tr>
+    </form>
+
+    </tbody>
+</table>
+
+{{>back_to_main}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./scripts/presents.js"></script>

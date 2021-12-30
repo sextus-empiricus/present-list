@@ -1,0 +1,59 @@
+{{>lists}}
+<hr>
+<table>
+    <thead>
+    <tr>Children list:</tr>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>address</th>
+        <th>present</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each children}}
+            <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.address}}</td>
+                <td><select data-id="{{this.id}}" name="presents" id="present-select" class="present-select">
+                    <option value="">none</option>
+                    {{#each ../presents}}
+                        <option {{#if (equals this.id ../this.present)}}selected='selected'{{/if}}
+                                value="{{this.id}}">{{this.name}} (available: {{lookup ../../available @index}})</option>
+                    {{/each}}
+
+                </select></td>
+                <td>
+                    <button class="btn-save" data-id="{{this.id}}">save</button>
+                </td>
+                <td>
+                    <button class="btn-remove" data-id="{{this.id}}">remove</button>
+                </td>
+            </tr>
+        {{/each}}
+    <!--ADD NEW CHILD-->
+    <form id="form-child">
+        <tr>
+            <td>*</td>
+            <td><input name="child-name" type="text" id="input-child-name" placeholder="add child"></td>
+            <td><input name="child-address" type="text" id="input-child-address" placeholder="address"></td>
+            <td><select name="child-presents" id="select-child-present">
+                <option value="">none</option>
+                {{#each presents}}
+                    <option value="{{this.id}}">{{this.name}} (available: {{lookup ../available @index}})</option>
+                {{/each}}
+            </select></td>
+            <td>
+                <button type="submit" id="button-form">add</button>
+            </td>
+        </tr>
+    </form>
+    </tbody>
+</table>
+
+{{>back_to_main}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./scripts/children.js"></script>
